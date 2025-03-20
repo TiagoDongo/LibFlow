@@ -7,6 +7,10 @@
 #include<time.h>
 #include<dirent.h>
 
+/**
+ * @brief Estrutura de dados para armazenar informações sobre livros
+ * @param *book Tipo de dado que representa um livro na biblioteca.
+ */
 typedef struct library {
     int book_id;
     char book_name[100];
@@ -16,6 +20,10 @@ typedef struct library {
     struct library *next;
 } *book;
 
+/**
+ * @brief Estrutura de dados para armazenar informações sobre usuários 
+ * @param *user Tipo de dado que representa um usuário no sistema.
+ */
 typedef struct users {
     int user_id;
     char user_name[100];
