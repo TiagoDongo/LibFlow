@@ -214,7 +214,7 @@ void load_list_book(book *book_head){
     int choice;
     printf("Escolha uma lista a ser carregado(1-%d): ", count);
     if (scanf("%d", &choice) != 1){
-        printf("Entrada iinvalida.\n");
+        printf("Entrada invalida.\n");
         while (getchar() != '\n');
         return;
     }
