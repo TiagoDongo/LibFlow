@@ -61,3 +61,14 @@
     ```bash
     mingw32_make run
     ```
+
+5. Caso de duvidas execute o comando:
+   - Linux
+    ```bash
+    make help
+    ```
+
+    - Windows
+    ```bash
+    mingw32_make help
+    ```
