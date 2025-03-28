@@ -522,7 +522,7 @@ void load_all_users_list(user *user_head){
 
                 user new_user = malloc(sizeof(struct users));
                 if (!new_user) {
-                    printf("ERRO: Falha ao alocar memória para um livro.\n");
+                    printf("ERRO: Falha ao alocar memória para um usuario.\n");
                     cJSON_Delete(json);
                     fclose(file);
                     return;
