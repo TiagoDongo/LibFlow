@@ -1,46 +1,44 @@
-# Library-Management
+# Library Management  
 
-É um sistema de gerenciamento de biblioteca que permite cadastrar, buscar, atualizar e remover livros e usuários, além de salvar e carregar listas em formato JSON. O projeto é implementado em C com suporte a manipulação de arquivos JSON utilizando a biblioteca `cJSON`.
+A lightweight library management system for registering, searching, updating, and removing books/users, with JSON data persistence. Built in `C` using `cJSON` for JSON file handling.  
 
-## Estrutura do Projeto
+## Project Structure  
 
-- **public/**: Contém o arquivo principal (`main.c`) e os módulos do sistema.
-- **src/**: Contém os cabeçalhos e definições de estruturas e funções.
-- **data/**: Diretório onde são armazenados os arquivos JSON gerados.
-- **scripts/**: Scripts em Python para geração de dados aleatórios e análise de dados.
+- **public/**: Main file (`main.c`) and system modules.  
+- **src/**: Headers and definitions for structures/functions.  
+- **data/**: Directory for generated JSON files.  
+- **scripts/**: Python scripts for data generation and analysis.  
 
-## ⚙ Pré-requisitos
+## ⚙ Prerequisites  
 
-- **Windows**:
-  - Instale o [MinGW](https://sourceforge.net/projects/mingw/) para compilar o código.
-  - Adicione o `gcc` ao PATH do sistema.
-  - `Opcional`: duplique o executavel mingw32_make e o renomeio para `make`
+- **Windows**:  
+  - Install [MinGW](https://sourceforge.net/projects/mingw/).  
+  - Add `gcc` to system PATH.  
+  - *Optional*: Duplicate `mingw32_make.exe` and rename to `make`.  
 
-- **Linux**:
-  - Certifique-se de que o GCC está instalado:
-    ```bash
-    sudo apt update
-    sudo apt install build-essential
-    ```
-- **Execução dos scripts python**:
-  - Faker (para geração de dados aleatórios)
-    ```bash
-    pip install faker 
-    ```
+- **Linux**:  
+  ```bash  
+  sudo apt update && sudo apt install build-essential
+  ```
 
-## 🚀Instalação
+- **Python scripts**:
+  ```bash
+  pip install faker 
+  ```
 
-1. Clone este repositório:
+## 🚀Installation
+
+1. Clone the repo:
    ```bash
    git clone https://github.com/TiagoDongo/Library-Management.git
    ```
 
-2. Navegue até o diretório do projeto:
+2. Navigate to the project:
     ```bash
    cd Library-Management
    ```
 
-3. Compile o projeto:
+3. Compile:
    - Linux
     ```bash
     make
@@ -51,7 +49,7 @@
     mingw32_make
     ```
 
-4. Execute o projeto:
+4. Run:
    - Linux
     ```bash
     make run
@@ -62,7 +60,7 @@
     mingw32_make run
     ```
 
-5. Caso de duvidas execute o comando:
+5. For help:
    - Linux
     ```bash
     make help
