@@ -13,26 +13,20 @@ void regist_book(book *book_head){
         return;
     }
     
-    //book id
     new_book->book_id = book_id_generator(*book_head);
 
-    //book name
     printf("Digite o nome do livro: ");
     scanf(" %99[^\n]", new_book->book_name);
 
-    //book autor
     printf("Digite o nome do autor do livro: ");
     scanf(" %99[^\n]", new_book->book_autor);
 
-    //book edition
     printf("Digite a edicao do livro: ");
     scanf("%d", &new_book->book_edition);
 
-    //book avaliable
     new_book->book_available = 1;
 
     new_book->next = NULL;
-
     if (*book_head == NULL){
         *book_head = new_book;
     }
@@ -43,7 +37,6 @@ void regist_book(book *book_head){
         }
         current->next = new_book;
     }
-    
     printf("\nSUCESSO: livro | %s | foi adicionado a lista.\n", new_book->book_name);
 }
 
@@ -72,7 +65,6 @@ void delete_book(book *book_head){
             else{
                 previous_book->next = current_book->next;
             }
-            
             printf("\nSUCESSO: livro | %s | foi removido da lista.\n", current_book->book_name);
             free(current_book);
             return;
@@ -90,22 +82,22 @@ void delete_book(book *book_head){
 void search_book(book book_head){
     int bookID;
 
-    if (book_head == NULL){//verifica se a biblioteca está vazia
+    if (book_head == NULL){
         printf("\nERRO: biblioteca vazia\n");
         return;
     }
 
-    printf("\nDigite o ID do livro que esta a procura: "); //pede o ID do livro a ser procurado
+    printf("\nDigite o ID do livro que esta a procura: ");
     scanf("%d", &bookID);
 
-    while (book_head != NULL){//percorre a lista
-        if (book_head->book_id == bookID){//caso encontre o livro imprime os dados do livro
+    while (book_head != NULL){
+        if (book_head->book_id == bookID){
             printf("\nLivro encontrado:\n");
             printf("ID: %d | Titulo: %s | Autor: %s | Edicao: %d | Disponivel: %s\n\n",
             book_head->book_id, book_head->book_name, book_head->book_autor, book_head->book_edition, (book_head->book_available == 1) ? "Sim" : "Nao");
             return;
         }
-        book_head = book_head->next;//avança para o próximo livro
+        book_head = book_head->next;
     }
     printf("\nERRO: Livro nao encontrado ou foi removido.\n");
 }
@@ -128,9 +120,9 @@ void list_books(book book_head){
     while (current != NULL){
         printf("  %-6d|  %-20s|  %-15s|  %-8d|  %-12s\n",
             current->book_id, current->book_name, current->book_autor, current->book_edition, 
-            (current->book_available == 1) ? "Sim" : "Nao");//imprime os dados do livro
+            (current->book_available == 1) ? "Sim" : "Nao");
 
-        current = current->next;//avança para o próximo livro
+        current = current->next;
     }
 }
 
@@ -144,33 +136,32 @@ void save_list_books(book book_head){
         return;
     }
 
-    //gera o nome do .json
     char file_name[150];
     generate_book_filename(file_name);
     
     FILE *file = fopen(file_name, "w");
-    if (file == NULL){//verificação da abertura do ficheiro
+    if (file == NULL){
         printf("ERRO: nao foi possivel abrir o JSON.\n");
         return;
     }
 
-    cJSON *json_array = cJSON_CreateArray(); //cria um vetor para guardar objetos/livros
+    cJSON *json_array = cJSON_CreateArray();
     book current = book_head;
 
     while (current != NULL){
-        cJSON *json_book = cJSON_CreateObject(); //cria um objeto para armazenar dados de um livro
-        cJSON_AddNumberToObject(json_book, "book_id", current->book_id); //id do livro
-        cJSON_AddStringToObject(json_book, "book_name", current->book_name); //nome do livro
-        cJSON_AddStringToObject(json_book, "book_autor", current->book_autor); //autor do livro
-        cJSON_AddNumberToObject(json_book, "book_edition", current->book_edition);//edição do livro
-        cJSON_AddStringToObject(json_book, "book_available", (current->book_available) ? "Sim" : "Nao");//disponiblidade do livro em forma de string
+        cJSON *json_book = cJSON_CreateObject(); 
+        cJSON_AddNumberToObject(json_book, "book_id", current->book_id); 
+        cJSON_AddStringToObject(json_book, "book_name", current->book_name); 
+        cJSON_AddStringToObject(json_book, "book_autor", current->book_autor); 
+        cJSON_AddNumberToObject(json_book, "book_edition", current->book_edition);
+        cJSON_AddStringToObject(json_book, "book_available", (current->book_available) ? "Sim" : "Nao");
 
-        cJSON_AddItemToArray(json_array, json_book); //adicioa o objeto criado ao array/vetor
-        current = current->next;//avança para o proximo livro
+        cJSON_AddItemToArray(json_array, json_book);
+        current = current->next;
     }
-    char *json_string = cJSON_Print(json_array);//converte o array para string
+    char *json_string = cJSON_Print(json_array);
 
-    fprintf(file, "%s", json_string);//escreve a string no json
+    fprintf(file, "%s", json_string);
     fclose(file);
 
     printf("\nSUCESSO: lista de livros salva em | %s |.\n", file_name);
@@ -280,7 +271,6 @@ void load_list_book(book *book_head){
             return;
         }
 
-        //dados do livro(s)
         new_book->book_id = ++max_id;
 
         strncpy(new_book->book_name, cJSON_GetObjectItem(json_obj, "book_name")->valuestring, sizeof(new_book->book_name) - 1);
@@ -359,10 +349,10 @@ void delete_list_book(){
     printf("Escolha uma lista a ser deletado(1-%d): ", count);
     if (scanf("%d", &choice) != 1) {
         printf("Entrada invalida.\n");
-        while (getchar() != '\n');  // Limpar buffer do teclado
+        while (getchar() != '\n');
         return;
     }
-    while (getchar() != '\n');// para evitar entrada duplicada
+    while (getchar() != '\n');
 
     if (choice < 1 || choice > count) {
         printf("Opcao invalida.\n");

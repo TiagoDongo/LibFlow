@@ -10,13 +10,9 @@ int main()
     user user_head = NULL;
     int choice;
 
-    // Garante que a pasta existe
-    system("mkdir -p data/book_lists");
-    system("mkdir -p data/user_lists");
-
     do
     {
-        printf("\n--- MENU PRINCIPAL ---\n");
+        printf("\n\n--- MENU PRINCIPAL ---\n");
         printf("1. Cadastrar Livro\n");
         printf("2. Remover Livro\n");
         printf("3. Buscar Livro\n");
@@ -26,21 +22,20 @@ int main()
         printf("7. Deletar Lista de Livros de JSON\n");
         printf("8. Atualizar Livro\n");
         printf("9. Carregar Todas as Listas de Livros\n");
-        printf("10. Cadastrar Usuário\n");
-        printf("11. Remover Usuário\n");
-        printf("12. Buscar Usuário\n");
-        printf("13. Listar Usuários\n");
-        printf("14. Salvar Lista de Usuários em JSON\n");
-        printf("15. Carregar Lista de Usuários de JSON\n");
-        printf("16. Deletar Lista de Usuários de JSON\n");
-        printf("17. Atualizar Usuário\n");
-        printf("18. Carregar Todas as Listas de Usuários\n");
+        printf("10. Cadastrar Usuario\n");
+        printf("11. Remover Usuario\n");
+        printf("12. Buscar Usuario\n");
+        printf("13. Listar Usuarios\n");
+        printf("14. Salvar Lista de Usuarios em JSON\n");
+        printf("15. Carregar Lista de Usuarios de JSON\n");
+        printf("16. Deletar Lista de Usuarios de JSON\n");
+        printf("17. Atualizar Usuario\n");
+        printf("18. Carregar Todas as Listas de Usuarios\n");
         printf("0. Sair\n");
         printf("Escolha uma opcao: ");
         scanf("%d", &choice);
-        while (getchar() != '\n')
-            ; // Limpa o buffer
-
+        while (getchar() != '\n'); 
+        printf("\n\n");
         switch (choice)
         {
         case 1:
@@ -105,22 +100,17 @@ int main()
         }
     } while (choice != 0);
 
-    // Liberar memória ao sair (opcional)
     book current_book = book_head;
-    while (current_book != NULL)
-    {
+    while (current_book != NULL){
         book temp = current_book;
         current_book = current_book->next;
         free(temp);
     }
-
     user current_user = user_head;
-    while (current_user != NULL)
-    {
+    while (current_user != NULL){
         user temp = current_user;
         current_user = current_user->next;
         free(temp);
     }
-
     return 0;
 }

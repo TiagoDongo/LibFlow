@@ -19,6 +19,9 @@ obj/cJSON.o: public/modules/cJSON.c src/cJSON.h
 run: build/main
 	./build/main
 
+random_data: scripts/random_datas.py
+	python scripts/random_datas.py
+
 clean_windows:
 	@if exist obj\*.o del /Q obj\*.o
 	@if exist build\main.exe del /Q build\main.exe
@@ -43,8 +46,6 @@ help:
 	@echo "  make run            - Run the project"
 	@echo "  make clean_windows          - Clean object files and executable(windows)"
 	@echo "  make clean_linux          - Clean object files and executable(linux)"
-	@echo "  make generate_json  - Generate random JSON data"
-	@echo "  make validate_jsons - Validate JSON files"
-	@echo "  make analyze_jsons  - Analyze JSON files"
+	@echo "  make random_data  - Generate random JSON data(for books and users)"
 	@echo "  make create_dirs    - Create necessary directories"
 	@echo "  make help           - Show this help message"
