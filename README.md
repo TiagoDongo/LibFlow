@@ -1,6 +1,20 @@
 # LibFlow 
 
+[![License](https://img.shields.io/github/license/TiagoDongo/LibFlow?style=for-the-badge&color=green)](https://github.com/TiagoDongo/LibFlow/blob/main/LICENSE)
+[![Alpha](https://img.shields.io/badge/Status-alpha-orange?style=for-the-badge)](https://github.com/TiagoDongo/LibFlow/releases)
+![C](https://img.shields.io/badge/Language-C-blue?style=for-the-badge)
+[![cJSON](https://img.shields.io/badge/Library-cJSON-green?style=for-the-badge)](https://github.com/DaveGamble/cJSON)
+
 A lightweight library management system for registering, searching, updating, and removing books/users, with JSON data persistence. Built in `C` using `cJSON` for JSON file handling.  
+
+---
+
+> [!NOTE]
+> **Test Environment**  
+> - Windows 10  
+> - cJSON library included in the project
+
+---
 
 ## Project Structure  
 
@@ -26,7 +40,7 @@ A lightweight library management system for registering, searching, updating, an
   pip install faker 
   ```
 
-## 🚀Installation
+## 🚀Installation & Usage
 
 1. Clone the repo:
    ```bash
@@ -35,7 +49,7 @@ A lightweight library management system for registering, searching, updating, an
 
 2. Navigate to the project:
     ```bash
-   cd Library-Management
+   cd LibFlow 
    ```
 
 3. Compile:
@@ -70,3 +84,7 @@ A lightweight library management system for registering, searching, updating, an
     ```bash
     mingw32-make help
     ```
+
+## 🤝 Contributing
+- 🐛 Report bugs via `Issues`
+- 📚 Contribution guidelines [`CONTRIBUTING.md`](CONTRIBUTING.md)
