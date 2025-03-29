@@ -3,7 +3,7 @@ import random
 import os
 from faker import Faker
 
-fake = Faker('en')
+fake = Faker('pt-br')
 
 def generate_random_book(book_id):
     return {
@@ -11,7 +11,7 @@ def generate_random_book(book_id):
         "book_name": fake.catch_phrase(),
         "book_autor": fake.name(),
         "book_edition": random.randint(1, 10),
-        "book_available": random.choice(["Yes", "No"])
+        "book_available": random.choice(["Sim", "Nao"])
     }
 
 def generate_random_user(user_id):

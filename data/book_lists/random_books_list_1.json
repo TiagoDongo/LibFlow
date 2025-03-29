@@ -1,0 +1,72 @@
+[
+    {
+        "book_id": 1,
+        "book_name": "A possibilidade de atingir seus objetivos com toda a tranquilidade",
+        "book_autor": "Maysa Campos",
+        "book_edition": 9,
+        "book_available": "Sim"
+    },
+    {
+        "book_id": 2,
+        "book_name": "A possibilidade de inovar simplesmente",
+        "book_autor": "Dra. Sophia Freitas",
+        "book_edition": 3,
+        "book_available": "Sim"
+    },
+    {
+        "book_id": 3,
+        "book_name": "A arte de mudar simplesmente",
+        "book_autor": "Letícia Sá",
+        "book_edition": 10,
+        "book_available": "Nao"
+    },
+    {
+        "book_id": 4,
+        "book_name": "A possibilidade de realizar seus sonhos sem preocupação",
+        "book_autor": "Carlos Eduardo da Cunha",
+        "book_edition": 5,
+        "book_available": "Nao"
+    },
+    {
+        "book_id": 5,
+        "book_name": "O direito de ganhar com força total",
+        "book_autor": "José Miguel Sousa",
+        "book_edition": 2,
+        "book_available": "Nao"
+    },
+    {
+        "book_id": 6,
+        "book_name": "A liberdade de ganhar naturalmente",
+        "book_autor": "Valentina Marques",
+        "book_edition": 1,
+        "book_available": "Sim"
+    },
+    {
+        "book_id": 7,
+        "book_name": "A vantagem de ganhar mais facilmente",
+        "book_autor": "Dr. Felipe Campos",
+        "book_edition": 4,
+        "book_available": "Nao"
+    },
+    {
+        "book_id": 8,
+        "book_name": "O direito de ganhar com força total",
+        "book_autor": "Cauã da Conceição",
+        "book_edition": 1,
+        "book_available": "Sim"
+    },
+    {
+        "book_id": 9,
+        "book_name": "A segurança de realizar seus sonhos naturalmente",
+        "book_autor": "Ana Luiza da Rosa",
+        "book_edition": 2,
+        "book_available": "Sim"
+    },
+    {
+        "book_id": 10,
+        "book_name": "A simplicidade de inovar de maneira eficaz",
+        "book_autor": "Benjamin Novais",
+        "book_edition": 3,
+        "book_available": "Sim"
+    }
+]

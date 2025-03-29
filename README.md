@@ -14,7 +14,7 @@ A lightweight library management system for registering, searching, updating, an
 - **Windows**:  
   - Install [MinGW](https://sourceforge.net/projects/mingw/).  
   - Add `gcc` to system PATH.  
-  - *Optional*: Duplicate `mingw32_make.exe` and rename to `make`.  
+  - *Optional*: Duplicate `mingw32-make.exe` and rename to `make`.  
 
 - **Linux**:  
   ```bash  
@@ -46,7 +46,7 @@ A lightweight library management system for registering, searching, updating, an
 
     - Windows
     ```bash
-    mingw32_make
+    mingw32-make
     ```
 
 4. Run:
@@ -57,7 +57,7 @@ A lightweight library management system for registering, searching, updating, an
 
     - Windows
     ```bash
-    mingw32_make run
+    mingw32-make run
     ```
 
 5. For help:
@@ -68,5 +68,5 @@ A lightweight library management system for registering, searching, updating, an
 
     - Windows
     ```bash
-    mingw32_make help
+    mingw32-make help
     ```

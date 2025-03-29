@@ -1,0 +1,72 @@
+[
+    {
+        "user_id": 1,
+        "user_name": "Bruna Araújo",
+        "user_email": "leaogabrielly@example.com",
+        "user_phone": "+55 (041) 3916-2232",
+        "user_course": "Law"
+    },
+    {
+        "user_id": 2,
+        "user_name": "Anthony Caldeira",
+        "user_email": "uda-mota@example.org",
+        "user_phone": "71 9071-0918",
+        "user_course": "Law"
+    },
+    {
+        "user_id": 3,
+        "user_name": "Lucas Ferreira",
+        "user_email": "azevedodaniel@example.net",
+        "user_phone": "61 3554 7405",
+        "user_course": "Medicine"
+    },
+    {
+        "user_id": 4,
+        "user_name": "Nicolas Monteiro",
+        "user_email": "pcaldeira@example.org",
+        "user_phone": "11 2676 6793",
+        "user_course": "Computer Science"
+    },
+    {
+        "user_id": 5,
+        "user_name": "Dra. Maria Sophia Melo",
+        "user_email": "caragao@example.net",
+        "user_phone": "+55 11 7630-6542",
+        "user_course": "Computer Science"
+    },
+    {
+        "user_id": 6,
+        "user_name": "Lucca da Costa",
+        "user_email": "da-rosaana-carolina@example.org",
+        "user_phone": "(084) 5725-9660",
+        "user_course": "Engineering"
+    },
+    {
+        "user_id": 7,
+        "user_name": "Raul Cardoso",
+        "user_email": "camila36@example.net",
+        "user_phone": "+55 31 6989 9087",
+        "user_course": "Architecture"
+    },
+    {
+        "user_id": 8,
+        "user_name": "Lorenzo Rocha",
+        "user_email": "zmoura@example.org",
+        "user_phone": "81 6125-4605",
+        "user_course": "Business Administration"
+    },
+    {
+        "user_id": 9,
+        "user_name": "Gael Ramos",
+        "user_email": "ana-cecilia93@example.org",
+        "user_phone": "+55 (041) 9979-2500",
+        "user_course": "Business Administration"
+    },
+    {
+        "user_id": 10,
+        "user_name": "Pietro Andrade",
+        "user_email": "luiz-otavio15@example.org",
+        "user_phone": "+55 (081) 4986 1474",
+        "user_course": "Engineering"
+    }
+]
