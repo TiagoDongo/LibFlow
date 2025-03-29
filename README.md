@@ -1,4 +1,4 @@
-# Library Management  
+# LibFlow 
 
 A lightweight library management system for registering, searching, updating, and removing books/users, with JSON data persistence. Built in `C` using `cJSON` for JSON file handling.  
 
@@ -30,7 +30,7 @@ A lightweight library management system for registering, searching, updating, an
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/TiagoDongo/Library-Management.git
+   git clone https://github.com/TiagoDongo/LibFlow.git
    ```
 
 2. Navigate to the project:
