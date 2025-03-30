@@ -1,0 +1,28 @@
+name: Build on Linux
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubunto-latest
+
+        steps:
+            #chekout code
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            #install dependencies
+            - name: Install dependencies
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y build-essential
+
+            #compile project
+            - name: Build project
+              run: make

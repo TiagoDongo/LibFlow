@@ -1,0 +1,32 @@
+name: Build on Windows
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: windows-latest
+
+        steps:
+            #chekout code
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            #install mingw
+            - name: Install MinGW
+              run: choco install mingw -y
+
+            #verify mingw32-make
+            - name: Verify mingw32-make
+              run: |
+                gcc --version
+                mingw32-make --version
+
+            #compile project
+            - name: Build project
+              run: mingw32-make
