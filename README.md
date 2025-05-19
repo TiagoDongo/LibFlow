@@ -79,13 +79,3 @@ A lightweight library management system for registering, searching, updating, an
 ## 🤝 Contributing
 - 🐛 Report bugs via `Issues`
 - 📚 Contribution guidelines [`CONTRIBUTING.md`](CONTRIBUTING.md)
-
-
-feat: implement complete book management and JSON persistence
-
-- Adds functions to add, edit, remove, and list books
-- Implements book search by ID
-- Adds data persistence in JSON files using cJSON
-- Allows saving, loading, and deleting book lists in JSON format
-- Improves error messages and user feedback
-- Refactors project structure to support multiple book list files
