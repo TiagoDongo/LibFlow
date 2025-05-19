@@ -1,0 +1,14 @@
+{
+  "Header Guard": {
+    "prefix": "hd",
+    "body": [
+      "#ifndef ${TM_FILENAME/(.*)\\.h$/${1:/upcase}/}_H_INCLUDED",
+      "#define ${TM_FILENAME/(.*)\\.h$/${1:/upcase}/}_H_INCLUDED",
+      "",
+      "$0",
+      "",
+      "#endif"
+    ],
+    "description": "Create a header guard with cursor positioned for content"
+  }
+}
