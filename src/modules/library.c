@@ -1,5 +1,6 @@
 #include"library.h"
 #include"cJSON.h"
+#include"utils.h"
 
 void regist_book(Book *book_head){
     Book new_book = (Book)malloc(sizeof(struct library));
@@ -8,7 +9,7 @@ void regist_book(Book *book_head){
         return;
     }
 
-    new_book->book_id = book_id_generator(*book_head);
+    new_book->book_id = id_generator(*book_head, TYPE_BOOK);
 
     printf("Digite o nome do livro: ");
     scanf(" %99[^\n]", new_book->book_name);
@@ -117,7 +118,7 @@ void updates_book(Book *book_head){
     }
     while (getchar() != '\n');
 
-    Book updatingBook = find_book(*book_head, bookID);
+    Book updatingBook = (Book)find_entity(*book_head, bookID, TYPE_BOOK);
     if (updatingBook == NULL){
         puts("ERRO: livro nao encontrado");
         return;
@@ -213,10 +214,10 @@ void save_list_books(Book book_head){
         if (resposta == 's' || resposta == 'S'){
             strcpy(filename, last_loaded_file);
         }else{
-            generate_json_book_filename(filename);
+            generate_json_filename(filename, TYPE_BOOK);
         }
     }else{
-        generate_json_book_filename(filename);
+        generate_json_filename(filename, TYPE_BOOK);
     }
 
     FILE *file = fopen(filename, "w");
@@ -365,7 +366,7 @@ void load_list_book(Book *book_head){
         new_book->book_name[sizeof(new_book->book_name) - 1] = '\0';
 
         strncpy(new_book->book_autor, cJSON_GetObjectItem(json_obj, "book_autor")->valuestring, sizeof(new_book->book_autor) - 1);
-        new_book->book_name[sizeof(new_book->book_autor) - 1] = '\0';
+        new_book->book_autor[sizeof(new_book->book_autor) - 1] = '\0';
 
         new_book->book_edition = cJSON_GetObjectItem(json_obj, "book_edition")->valueint;
 
@@ -462,50 +463,4 @@ void delete_list_book(){
     else {
         printf("ERRO: Não foi possível deletar o ficheiro '%s'.\n", files[choice - 1]);
     }
-}
-
-int book_id_generator(Book book_head){
-    int bookID = 0;
-
-    while (book_head != NULL){
-        if (book_head->book_id > bookID){
-            bookID = book_head->book_id;
-        }
-        book_head = book_head->next_book;
-    }
-    return bookID + 1;
-}
-
-void generate_json_book_filename(char *filename){
-    struct dirent *entry;
-    DIR *dir = opendir("data");
-    if (dir == NULL){
-        printf("ERRO: nao foi possivel abrir a pasta 'data'.\n");
-        return;
-    }
-    
-    int max_index = 0;
-    while ((entry = readdir(dir)) != NULL){
-        if (strstr(entry->d_name, "Book_") && strstr(entry->d_name, ".json")){
-            int current_index = 0;
-
-            if (sscanf(entry->d_name, "Book_%d.json", &current_index) == 1){
-                if (current_index > max_index){
-                    max_index = current_index;
-                }
-            }
-        }
-    }
-    closedir(dir);
-    sprintf(filename, "data/Book_%d.json", max_index + 1);
-}
-
-Book find_book(Book book_head, int bookID){
-    while (book_head != NULL){
-       if (book_head->book_id == bookID){
-            return book_head;
-       }
-        book_head = book_head->next_book;
-    }
-    return NULL;
 }

@@ -3,10 +3,11 @@ INCLUDES = -Ilibs
 
 all: build/main
 
-build/main: dirs $(wildcard $(SRC))
+build/main: $(wildcard $(SRC))
 	@gcc -o build/main $(SRC) $(INCLUDES)
 
-run:
+run: dirs build/main
+	@cls || clear
 	@./build/main
 
 script:
@@ -15,6 +16,7 @@ script:
 dirs:
 	-@mkdir build
 	-@mkdir data
+	@python -c "import os; os.makedirs(os.path.join('data', 'users'), exist_ok=True)"
 
 clean:
 	-@if exist data\*.json del /q data\*.json || rm -f data/*.json
@@ -26,7 +28,7 @@ help:
 	@echo "Makefile do Libflow"
 	@echo "Como Usar:"
 	@echo "make 			- Compila o projeto"
-	@echo "make run 		- Executa o projeto"
+	@echo "make run 		- Compila e Executa o projeto"
 	@echo "make scripts 		- Executa os scripts python da pasta scripts"
 	@echo "make dirs 		- Cria os diretorios necessarios"
 	@echo "make clean" 		- Deleta o executavel e os JSONs bem como seus diretorios
