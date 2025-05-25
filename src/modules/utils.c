@@ -103,16 +103,3 @@ void generate_json_filename(char *filename, DataType type){
     }
 
 }
-
-void freedom(User user_head, Book book_head){
-    while (user_head != NULL) {
-        User temp = user_head;
-        user_head = user_head->next;
-        free(temp);
-    }
-    while (book_head != NULL) {
-        Book temp = book_head;
-        book_head = book_head->next_book;
-        free(temp);
-    }
-}

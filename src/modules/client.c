@@ -11,8 +11,6 @@ void regist_user(User *user_head){
     
     new_user->user_id = id_generator(*user_head, TYPE_USER);
 
-    puts("\n----- Registro de Usuarios -----\n");
-
     printf("Digite o nome do usuario: ");
     fgets(new_user->user_name, sizeof(new_user->user_name), stdin);
     new_user->user_name[strcspn(new_user->user_name, "\n")] = '\0';

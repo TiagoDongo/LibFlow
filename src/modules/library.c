@@ -11,7 +11,7 @@ void regist_book(Book *book_head){
 
     new_book->book_id = id_generator(*book_head, TYPE_BOOK);
 
-    printf("Digite o nome do livro: ");
+    printf("\nDigite o nome do livro: ");
     scanf(" %99[^\n]", new_book->book_name);
 
     printf("Digite o nome do autor do livro: ");
@@ -33,7 +33,7 @@ void regist_book(Book *book_head){
         }
         current->next_book = new_book;
     }
-    printf("SUCESSO: livro '%s' adicionado a biblioteca", new_book->book_name);
+    printf("SUCESSO: livro '%s' adicionado a biblioteca\n", new_book->book_name);
 }
 
 void delete_book(Book *book_head, int bookID){
@@ -60,30 +60,30 @@ void delete_book(Book *book_head, int bookID){
         previous_book = current_book;
         current_book = current_book->next_book;
     }
-    puts("ERRO: livro nao encontrado");
+    puts("\nERRO: livro nao encontrado\n");
 }
 
 void search_book(Book book_head, int bookID){
     if (book_head == NULL){
-        puts("ERRO: biblioteca vazia");
+        puts("\nERRO: biblioteca vazia\n");
         return;
     }
 
     while (book_head != NULL){
         if (book_head->book_id == bookID){
-            puts("Livro encontrado:");
+            puts("\nLivro encontrado:");
             printf("ID: %d | Titulo: %s | Autor: %s | Edicao: %d | Disponivel: %s\n\n",
             book_head->book_id, book_head->book_name, book_head->book_autor, book_head->book_edition, (book_head->book_available == 1) ? "Sim" : "Nao");
             return;
         }
         book_head = book_head->next_book;
     }
-    puts("ERRO: Livro nao encontrado ou foi removido.");
+    puts("ERRO: Livro nao encontrado ou foi removido.\n");
 }
 
 void list_books(Book book_head){
     if (book_head == NULL){
-        puts("ERRO: biblioteca vazia");
+        puts("ERRO: biblioteca vazia\n");
         return;
     }
 
@@ -104,7 +104,7 @@ void updates_book(Book *book_head){
     int bookID, option;
 
     if (book_head == NULL){
-        puts("ERRO: biblioteca vazia.");
+        puts("ERRO: biblioteca vazia.\n");
         return;
     }
 
@@ -120,7 +120,7 @@ void updates_book(Book *book_head){
 
     Book updatingBook = (Book)find_entity(*book_head, bookID, TYPE_BOOK);
     if (updatingBook == NULL){
-        puts("ERRO: livro nao encontrado");
+        puts("ERRO: livro nao encontrado\n");
         return;
     }
 

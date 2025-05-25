@@ -11,6 +11,7 @@ A lightweight library management system for registering, searching, updating, an
 > **Test Environment**
 > - Windows 10
 > - cJSON library included in the project
+> - The **cJSON** library is already included in the project (the `.c` and `.h` files are in the `src/modules/` and `libs/` folders), so **no additional installation is required for JSON handling**
 
 ---
 
@@ -48,17 +49,8 @@ A lightweight library management system for registering, searching, updating, an
     ```bash
    cd LibFlow 
    ```
-
-3. Compile:
-    ```bash
-    # linux:
-        make
-
-    # windows:
-        mingw32-make        
-    ```
-
-4. Run:
+   
+3. Compile & Run:
     ```bash
     # linux:
         make run
@@ -67,7 +59,7 @@ A lightweight library management system for registering, searching, updating, an
         mingw32-make run        
     ```
 
-5. For help:
+4. For help:
     ```bash
     # linux:
         make help
