@@ -1,7 +1,8 @@
-#include"libflow.h"
 #include"utils.h"
 #include"library.h"
 #include"client.h"
+#include"loan.h"
+#include"libflow.h"
 
 void freedom(User user_head, Book book_head){
     while (user_head != NULL) {
@@ -119,7 +120,6 @@ void book_menu(Book *book_head) {
     } while (option != 0);
 }
 
-
 void user_menu(User *user_head) {
     int option, id;
 
@@ -178,37 +178,79 @@ void user_menu(User *user_head) {
                 }
                 break;
             }
-
+            
             case 3:
                 save_list_user(*user_head);
                 break;
-
-            case 4:
+                
+                case 4:
                 load_list_user(user_head);
                 break;
-
-            case 5:
+                
+                case 5:
                 printf("\nPor implementar\n");
                 break;
-
-            case 0:
+                
+                case 0:
                 printf("Voltando ao menu principal...\n");
                 break;
-
-            default:
+                
+                default:
                 printf("Opcao invalida!\n");
-        }
-    } while (option != 0);
-}
-
+            }
+        } while (option != 0);
+    }
+    
+    
+    void loan_menu(Loan *loan_head, Book *book_head, User *user_head) {
+        int option;
+        do {
+            printf("\n===== GERENCIAMENTO DE EMPRESTIMOS =====\n");
+            printf("1. Realizar emprestimo\n");
+            printf("2. Devolver livro\n");
+            printf("3. Salvar emprestimos\n");
+            printf("4. Carregar emprestimos\n");
+            printf("0. Voltar ao menu principal\n");
+            printf("Escolha uma opcao: ");
+    
+            if (scanf("%d", &option) != 1) {
+                printf("Entrada invalida!\n");
+                while (getchar() != '\n');
+                continue;
+            }
+            while (getchar() != '\n');
+    
+            switch (option) {
+                case 1:
+                    make_loan(loan_head, *book_head, *user_head);
+                    break;
+                case 2:
+                    return_book(loan_head, *book_head);
+                    break;
+                case 3:
+                    save_loans(*loan_head);
+                    break;
+                case 4:
+                    load_loans(loan_head);
+                    break;
+                case 0:
+                    printf("Voltando ao menu principal...\n");
+                    break;
+                default:
+                    printf("Opcao invalida!\n");
+            }
+        } while (option != 0);
+    }
 
 void main_menu(Book *book_head, User *user_head) {
-    int option;
+        int option;
+    static Loan loan_head = NULL; // Mantém a lista de empréstimos
 
     do {
         printf("\n------ LIBFLOW MENU ------\n");
         printf("1. Gerenciar Livros\n");
         printf("2. Gerenciar Usuarios\n");
+        printf("3. Gerenciar Emprestimos\n");
         printf("0. Sair\n");
         printf("Escolha uma opcao: ");
         
@@ -223,15 +265,15 @@ void main_menu(Book *book_head, User *user_head) {
             case 1:
                 book_menu(book_head);
                 break;
-
             case 2:
                 user_menu(user_head);
                 break;
-
+            case 3:
+                loan_menu(&loan_head, book_head, user_head);
+                break;
             case 0:
                 printf("Saindo...\n");
                 break;
-
             default:
                 printf("Opcao invalida!\n");
         }
