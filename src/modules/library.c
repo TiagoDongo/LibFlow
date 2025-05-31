@@ -1,6 +1,6 @@
-#include"library.h"
-#include"cJSON.h"
 #include"utils.h"
+#include"cJSON.h"
+#include"library.h"
 
 void regist_book(Book *book_head){
     Book new_book = (Book)malloc(sizeof(struct library));
@@ -101,8 +101,8 @@ void list_books(Book book_head){
 }
 
 void updates_book(Book *book_head){
-    int bookID, option;
-
+    int option;
+    
     if (book_head == NULL){
         puts("ERRO: biblioteca vazia.\n");
         return;
@@ -110,13 +110,7 @@ void updates_book(Book *book_head){
 
     list_books(*book_head);
 
-    printf("Digite o ID do livro a ser atualizado: ");
-    if (scanf("%d", &bookID) != 1){
-        printf("ERRO: entrada invalida.\n");
-        while (getchar() != '\n');
-        return;
-    }
-    while (getchar() != '\n');
+    int bookID = validated_int_input("Digite o ID do livro a ser atualizado: ");
 
     Book updatingBook = (Book)find_entity(*book_head, bookID, TYPE_BOOK);
     if (updatingBook == NULL){
@@ -137,13 +131,7 @@ void updates_book(Book *book_head){
         puts("3 - Edicao");
         puts("4 - Concluir atualizacao");
         puts("0 - Cancelar");
-        puts("Escolha uma opcao: ");
-        if (scanf("%d", &option) != 1) {
-            printf("ERRO: Entrada invalida.\n");
-            while (getchar() != '\n');
-            return;
-        }
-        while (getchar() != '\n'); 
+        option = validated_int_input("Escolha uma opcao: ");
 
         switch (option){
         case 1:{
@@ -209,7 +197,7 @@ void save_list_books(Book book_head){
     if (list_loaded && strlen(last_loaded_file) > 0){
         printf("Dejesa sobescrever o ficheiro carregado anteriormente (%s) (s/n): ", last_loaded_file);
         char resposta;
-        scanf("%c", &resposta);
+        scanf(" %c", &resposta);
 
         if (resposta == 's' || resposta == 'S'){
             strcpy(filename, last_loaded_file);
@@ -291,17 +279,9 @@ void load_list_book(Book *book_head){
     }
     
 
-    int choice;
-    printf("Escolha uma lista a ser carregado(1-%d): ", count);
-    if (scanf("%d", &choice) != 1){
-        printf("Entrada invalida.\n");
-        while (getchar() != '\n');
-        return;
-    }
-    while (getchar() != '\n');
-
-    if (choice < 1 || choice > count){
-        printf("ERRO: opcao invalida.\n");
+    int choice = validated_int_input("Escolha uma lista a ser carregada: ");
+    if (choice < 1 || choice > count) {
+        printf("ERRO: Opção inválida.\n");
         return;
     }
 
@@ -342,15 +322,14 @@ void load_list_book(Book *book_head){
         return;
     }
     
-    int max_id = 0;
-    Book current = *book_head;
-    while (current != NULL){
-        if (current->book_id > max_id){
-            max_id = current->book_id;
-        }
-        current = current->next_book;
+    Book temp;
+    while (*book_head != NULL){
+        temp = *book_head;
+        *book_head = (*book_head)->next_book;
+        free(temp);
     }
 
+    int max_id = 0;
     for (int i = 0; i < cJSON_GetArraySize(json); i++){
         cJSON *json_obj = cJSON_GetArrayItem(json, i);
         Book new_book = malloc(sizeof(struct library));
@@ -386,18 +365,8 @@ void load_list_book(Book *book_head){
             new_book->book_available = -1;
         }
         
-        new_book->next_book = NULL;
-
-        if (*book_head == NULL){
-            *book_head = new_book;
-        }
-        else {
-            Book last = *book_head;
-            while (last->next_book != NULL){
-                last = last->next_book;
-            }
-            last->next_book = new_book;
-        }
+        new_book->next_book = *book_head;
+        *book_head = new_book;
     }
     
     cJSON_Delete(json);

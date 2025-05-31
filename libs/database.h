@@ -62,6 +62,21 @@ typedef struct users {
 typedef enum {
     TYPE_BOOK,  /**< Tipo livro */
     TYPE_USER,  /**< Tipo usuário */
+    TYPE_LOAN,  /**< Tipo empréstimo */
 } DataType;
+
+/**
+ * @struct Loan
+ * @brief Estrutura para representar um empréstimo de livro
+ * Contém informações sobre o livro emprestado, o usuario, datas de emprstimo/devolução e status.
+ */
+typedef struct loan {
+    int loan_id;    /**< Identificador único do empréstimo */
+    int user_id;    /**< Identificador do usuario que fez o empréstimo */
+    int book_id;    /**< Identificador livro empréstado */
+    char loan_date[11];    /**< Data de empréstimo (formato: YYYY-MM-DD) */
+    int returned;   /**< Status: 1 = devolvido, 0 = em andamento*/
+    struct loan *next;  /**< Ponteiro para o próximo empréstimo */
+} *Loan;
 
 #endif

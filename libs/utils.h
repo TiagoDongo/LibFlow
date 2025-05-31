@@ -39,4 +39,6 @@ void generate_json_filename(char *filename, DataType type);
  */
 const char *get_type_prefix(DataType type);
 
+int validated_int_input(const char *prompt);
+
 #endif

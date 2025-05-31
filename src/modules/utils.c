@@ -16,7 +16,12 @@ int id_generator(void *head, DataType type){
                 currentID = ((struct users *)head)->user_id;
                 head = ((struct users *)head)->next;
                 break;
-            
+
+            case TYPE_LOAN:
+                currentID = ((struct loan *)head)->loan_id;
+                head = ((struct loan *)head)->next;
+                break;
+
             default:
                 return -1;
                 break;
@@ -30,27 +35,41 @@ int id_generator(void *head, DataType type){
 }
 
 void *find_entity(void *head_list, int entityID, DataType type){
-    if (type == TYPE_BOOK){
-        Book current_book = (Book)head_list;
-        while (current_book != NULL){
-        if (current_book->book_id == entityID){
-                return current_book;
+    switch (type) {
+        case TYPE_BOOK: {
+            Book current_book = (Book)head_list;
+            while (current_book != NULL){
+                if (current_book->book_id == entityID){
+                    return current_book;
+                }
+                current_book = current_book->next_book;
+            }
+            break;
         }
-            current_book = current_book->next_book;
+        case TYPE_USER: {
+            User current_user = (User)head_list;
+            while (current_user != NULL){
+                if (current_user->user_id == entityID){
+                    return current_user;
+                }
+                current_user = current_user->next;
+            }
+            break;
         }
-    } 
-    else if (type == TYPE_USER){
-        User current_user = (User)head_list;
-        while (current_user != NULL){
-        if (current_user->user_id == entityID){
-                return current_user;
+        case TYPE_LOAN: {
+            Loan current_loan = (Loan)head_list;
+            while (current_loan != NULL){
+                if (current_loan->loan_id == entityID){
+                    return current_loan;
+                }
+                current_loan = current_loan->next;
+            }
+            break;
         }
-            current_user = current_user->next;
-        }
+        default:
+            return NULL;
     }
-    
     return NULL;
-    
 }
 
 const char *get_type_prefix(DataType type){
@@ -58,6 +77,8 @@ const char *get_type_prefix(DataType type){
         case TYPE_BOOK: return "Book_";
 
         case TYPE_USER: return "User_";
+
+        case TYPE_LOAN: return "Loan_";
         
         default: return NULL;
     }
@@ -71,7 +92,19 @@ void generate_json_filename(char *filename, DataType type){
         return;
     }
 
-    const char *dir_path = (type == TYPE_USER) ? "data/users" : "data";
+    const char *dir_path;
+    switch (type){
+    case TYPE_BOOK: dir_path = "data"; break;
+
+    case TYPE_USER: dir_path = "data/users"; break;
+
+    case TYPE_LOAN: dir_path = "data/loans"; break;
+
+    default:
+        printf("ERRO: tipo de dado invalido.\n");
+        break;
+    }
+
     struct dirent *entry;
     DIR *dir = opendir(dir_path);
     if (dir == NULL){
@@ -80,13 +113,13 @@ void generate_json_filename(char *filename, DataType type){
     }
 
     int max_index = 0;
-    char name_format[100];
-    snprintf(name_format, sizeof(name_format), "%s%d.json", prefix);
+    char pattern[64];
+    snprintf(pattern, sizeof(pattern), "%s%d.json", prefix);
 
     while ((entry = readdir(dir)) != NULL){
         int current_index = 0;
         if (strstr(entry->d_name, prefix) && strstr(entry->d_name, ".json")){
-            if (sscanf(entry->d_name, name_format, &current_index) == 1){
+            if (sscanf(entry->d_name, pattern, &current_index) == 1){
                 if (current_index > max_index){
                     max_index = current_index;
                 }
@@ -96,10 +129,26 @@ void generate_json_filename(char *filename, DataType type){
     
     closedir(dir);
 
-    if (type == TYPE_USER) {
-        sprintf(filename, "data/users/%s%d.json", prefix, max_index + 1);
-    } else {
-        sprintf(filename, "data/%s%d.json", prefix, max_index + 1);
-    }
 
+    snprintf(filename,FILENAME_MAX,"%s/%s%d.json",dir_path ,prefix, max_index + 1);
+
+}
+
+
+int validated_int_input(const char *prompt){
+    int value, result;
+    char c;
+
+    do{
+        printf("%s", prompt);
+        result = scanf("%d", &value);
+
+        while ((c = getchar()) != '\n' && c != EOF);
+        
+        if (result != 1 || value < 0){
+            printf("Entrada invalida. Por favor digite um numero inteiro nao negativo.\n");
+        }
+    } while (result != 1 || value < 0);
+
+    return value;
 }

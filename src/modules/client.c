@@ -1,6 +1,6 @@
-#include"client.h"
-#include"cJSON.h"
 #include"utils.h"
+#include"cJSON.h"
+#include"client.h"
 
 void regist_user(User *user_head){
     User new_user = (User)malloc(sizeof(struct users));
@@ -73,9 +73,11 @@ void save_list_user(User user_head){
         printf("Dejesa sobescrever o ficheiro carregado anteriormente (%s) (s/n): ", last_loaded_file);
         char resposta;
         scanf("%c", &resposta);
+        while (getchar() != '\n');
 
         if (resposta == 's' || resposta == 'S'){
-            strcpy(filename, last_loaded_file);
+            strncpy(filename, last_loaded_file, sizeof(filename) - 1);
+            filename[sizeof(filename) - 1] = '\0';
         }else{
             generate_json_filename(filename, TYPE_USER);
         }
@@ -96,7 +98,6 @@ void save_list_user(User user_head){
         cJSON_AddNumberToObject(json_user, "user_id", user_head->user_id);
         cJSON_AddStringToObject(json_user, "user_name", user_head->user_name);
         cJSON_AddStringToObject(json_user, "user_email", user_head->user_email);
-
         cJSON_AddItemToArray(user_array, json_user);
         user_head = user_head->next;
     }
@@ -105,10 +106,13 @@ void save_list_user(User user_head){
     fprintf(file, "%s", user_json_string);
     fclose(file);
 
-    strcpy(last_loaded_file, filename);
+    strncpy(last_loaded_file, filename, sizeof(last_loaded_file) - 1);
+    last_loaded_file[sizeof(last_loaded_file) - 1] = '\0';
 
     cJSON_Delete(user_array);
     free(user_json_string);
+
+    printf("SUCESSO: Lista de usuários salva em '%s'.\n", filename);
 }
 
 void load_list_user(User *user_head){
@@ -128,11 +132,11 @@ void load_list_user(User *user_head){
     struct dirent *entry;
     DIR *dir = opendir("data/users");
     if (dir == NULL){
-        printf("ERRO: nao e possivel abrir a pasta 'data'.\n");
+        printf("ERRO: nao e possivel abrir a pasta 'data/users'.\n");
         return;
     }
 
-    puts("Listas de livros disponiveis:");
+    puts("Listas de Usuarios disponiveis:");
     char files[50][100];
     int count = 0;
 
@@ -147,22 +151,13 @@ void load_list_user(User *user_head){
     closedir(dir);
 
     if (count == 0){
-        printf("ERRO: diretorio vazia.\n");
+        printf("ERRO: diretorio vazio.\n");
         return;
     }
     
-
-    int choice;
-    printf("Escolha uma lista a ser carregado(1-%d): ", count);
-    if (scanf("%d", &choice) != 1){
-        printf("Entrada invalida.\n");
-        while (getchar() != '\n');
-        return;
-    }
-    while (getchar() != '\n');
-
-    if (choice < 1 || choice > count){
-        printf("ERRO: opcao invalida.\n");
+    int choice = validated_int_input("Escolha uma lista a ser carregada: ");
+    if (choice < 1 || choice > count) {
+        printf("ERRO: Opção inválida.\n");
         return;
     }
 
@@ -203,15 +198,14 @@ void load_list_user(User *user_head){
         return;
     }
     
-    int max_id = 0;
-    User current = *user_head;
-    while (current != NULL){
-        if (current->user_id > max_id){
-            max_id = current->user_id;
-        }
-        current = current->next;
+    User temp;
+    while (*user_head != NULL) {
+        temp = *user_head;
+        *user_head = (*user_head)->next;
+        free(temp);
     }
 
+    int max_id = 0;
     for (int i = 0; i < cJSON_GetArraySize(json); i++){
         cJSON *json_obj = cJSON_GetArrayItem(json, i);
         User new_user = malloc(sizeof(struct users));
@@ -229,18 +223,8 @@ void load_list_user(User *user_head){
         strncpy(new_user->user_email, cJSON_GetObjectItem(json_obj, "user_email")->valuestring, sizeof(new_user->user_email) - 1);
         new_user->user_email[sizeof(new_user->user_email) - 1] = '\0';
         
-        new_user->next = NULL;
-
-        if (*user_head == NULL){
-            *user_head = new_user;
-        }
-        else {
-            User last = *user_head;
-            while (last->next != NULL){
-                last = last->next;
-            }
-            last->next = new_user;
-        }
+        new_user->next = *user_head;
+        *user_head = new_user;
     }
     
     cJSON_Delete(json);

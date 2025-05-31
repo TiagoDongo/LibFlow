@@ -17,6 +17,7 @@ dirs:
 	-@mkdir build
 	-@mkdir data
 	@python -c "import os; os.makedirs(os.path.join('data', 'users'), exist_ok=True)"
+	@python -c "import os; os.makedirs(os.path.join('data', 'loans'), exist_ok=True)"
 
 clean:
 	-@if exist data\*.json del /q data\*.json || rm -f data/*.json
