@@ -22,82 +22,18 @@ void regist_book(Book *book_head){
 
     new_book->book_available = 1;
 
-    new_book->next_book = NULL;
+    new_book->next = NULL;
     if (*book_head == NULL){
         *book_head = new_book;
     }
     else{
         Book current = *book_head;
-        while (current->next_book != NULL){
-            current = current->next_book;
+        while (current->next != NULL){
+            current = current->next;
         }
-        current->next_book = new_book;
+        current->next = new_book;
     }
-    printf("SUCESSO: livro '%s' adicionado a biblioteca\n", new_book->book_name);
-}
-
-void delete_book(Book *book_head, int bookID){
-    Book current_book = *book_head;
-    Book previous_book = NULL;
-
-    if (*book_head == NULL){
-        puts("ERROR: biblioteca vazia");
-        return;
-    }
-    
-    while (current_book != NULL){
-        if (current_book->book_id == bookID){
-            if (previous_book == NULL){
-                *book_head = current_book->next_book;
-            }
-            else {
-                previous_book->next_book = current_book->next_book;
-            }
-            printf("\nSUCESSO: livro | %s | foi removido da lista.\n", current_book->book_name);
-            free(current_book);
-            return;            
-        }
-        previous_book = current_book;
-        current_book = current_book->next_book;
-    }
-    puts("\nERRO: livro nao encontrado\n");
-}
-
-void search_book(Book book_head, int bookID){
-    if (book_head == NULL){
-        puts("\nERRO: biblioteca vazia\n");
-        return;
-    }
-
-    while (book_head != NULL){
-        if (book_head->book_id == bookID){
-            puts("\nLivro encontrado:");
-            printf("ID: %d | Titulo: %s | Autor: %s | Edicao: %d | Disponivel: %s\n\n",
-            book_head->book_id, book_head->book_name, book_head->book_autor, book_head->book_edition, (book_head->book_available == 1) ? "Sim" : "Nao");
-            return;
-        }
-        book_head = book_head->next_book;
-    }
-    puts("ERRO: Livro nao encontrado ou foi removido.\n");
-}
-
-void list_books(Book book_head){
-    if (book_head == NULL){
-        puts("ERRO: biblioteca vazia\n");
-        return;
-    }
-
-    puts("--------------------- LISTA DE LIVROS ---------------------");
-    puts("  ID    |   Titulo              |   Autor          |   Edicao   |   Disponivel  ");
-    puts("--------------------------------------------------------------------------------");
-
-    while (book_head != NULL){
-        printf("  %-6d|  %-20s|  %-15s|  %-8d|  %-12s\n",
-            book_head->book_id, book_head->book_name, book_head->book_autor, book_head->book_edition, 
-            (book_head->book_available == 1) ? "Sim" : "Nao");
-
-        book_head = book_head->next_book;
-    }
+    printf("\nSUCESSO: livro '%s' adicionado a biblioteca\n", new_book->book_name);
 }
 
 void updates_book(Book *book_head){
@@ -110,7 +46,7 @@ void updates_book(Book *book_head){
 
     list_books(*book_head);
 
-    int bookID = validated_int_input("Digite o ID do livro a ser atualizado: ");
+    int bookID = validated_int_input("\nDigite o ID do livro a ser atualizado: ");
 
     Book updatingBook = (Book)find_entity(*book_head, bookID, TYPE_BOOK);
     if (updatingBook == NULL){
@@ -225,7 +161,7 @@ void save_list_books(Book book_head){
         cJSON_AddStringToObject(json_book, "book_available", book_head->book_available ? "Sim" : "Nao");
 
         cJSON_AddItemToArray(json_array, json_book);
-        book_head = book_head->next_book;
+        book_head = book_head->next;
     }
     
     char *json_string = cJSON_Print(json_array);
@@ -325,7 +261,7 @@ void load_list_book(Book *book_head){
     Book temp;
     while (*book_head != NULL){
         temp = *book_head;
-        *book_head = (*book_head)->next_book;
+        *book_head = (*book_head)->next;
         free(temp);
     }
 
@@ -365,71 +301,11 @@ void load_list_book(Book *book_head){
             new_book->book_available = -1;
         }
         
-        new_book->next_book = *book_head;
+        new_book->next = *book_head;
         *book_head = new_book;
     }
     
     cJSON_Delete(json);
     list_loaded = 1;
     printf("SUCESSO: Lista carregada do ficheiro | %s |.\n", files[choice - 1]);    
-}
-
-void delete_list_book(){
-    struct dirent *entry;
-    DIR *dir = opendir("data");
-
-    if (dir == NULL){
-        puts("ERRO: nao e possivel abrir a pasta 'data'");
-        return;
-    }
-
-    puts("Listas de livros disponiveis:");
-    char files[50][100];
-    int count = 0;
-
-    while ((entry = readdir(dir)) != NULL){
-        if (strstr(entry->d_name, ".json")){
-            printf("[%d] %s\n", count+1, entry->d_name);
-            strncpy(files[count], entry->d_name, sizeof(files[count]) - 1);
-            files[count][sizeof(files[count]) - 1] = '\0';
-            count++;
-        }
-    }
-    closedir(dir);
-    
-    if (count == 0){
-        printf("ERRO: A pasta esta vazia\n");
-        return;
-    }
-
-    int choice;
-    printf("Seleciona a lista que deseja deletar(1-%d): ", count);
-    if (scanf("%d", &choice) != 1) {
-        printf("Entrada invalida.\n");
-        while (getchar() != '\n');
-        return;
-    }
-    while (getchar() != '\n');
-    
-    if (choice < 1 || choice > count) {
-        printf("ERRO: Opcao invalida.\n");
-        return;
-    }
-
-    char filepath[150];
-    sprintf(filepath, "data/%s", files[choice - 1]);
-
-    char confirm;
-    printf("Tem certeza que deseja deletar '%s'? (s/n): ", files[choice - 1]);
-    scanf(" %c", &confirm);
-    if (confirm != 's' && confirm != 'S') {
-        printf("Operacao cancelada.\n");
-        return;
-    }
-    if (remove(filepath) == 0) {
-        printf("SUCESSO: Arquivo '%s' deletado.\n", files[choice - 1]);
-    } 
-    else {
-        printf("ERRO: Não foi possível deletar o ficheiro '%s'.\n", files[choice - 1]);
-    }
 }

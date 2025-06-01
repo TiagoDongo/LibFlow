@@ -9,7 +9,7 @@ int id_generator(void *head, DataType type){
         switch (type){
             case TYPE_BOOK:
                 currentID = ((struct library *)head)->book_id;
-                head = ((struct library *)head)->next_book;
+                head = ((struct library *)head)->next;
                 break;
 
             case TYPE_USER:
@@ -42,7 +42,7 @@ void *find_entity(void *head_list, int entityID, DataType type){
                 if (current_book->book_id == entityID){
                     return current_book;
                 }
-                current_book = current_book->next_book;
+                current_book = current_book->next;
             }
             break;
         }

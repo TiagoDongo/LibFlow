@@ -15,13 +15,6 @@
 void regist_user(User *user_head);
 
 /**
- * @brief Remove um usuário na lista pelo ID
- * @param user_head Ponteiro para o ponteiro do início da lista de usuários
- * @param userID ID do usuário a ser removido
- */
-void delete_user(User *user_head, int userID);
-
-/**
  * @brief Salva a lista de usuários em um arquivo JSON.
  * @param user_head Inicio da lista de usuários.
  */

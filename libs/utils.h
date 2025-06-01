@@ -6,7 +6,7 @@
 #ifndef UTILS_H_INCLUDED
 #define UTILS_H_INCLUDED
 
-#include"database.h"
+#include "database.h"
 
 /**
  * @brief Gera um novo ID para entidade (livro ou usuário).
@@ -39,6 +39,11 @@ void generate_json_filename(char *filename, DataType type);
  */
 const char *get_type_prefix(DataType type);
 
+/**
+ * @brief Solicita ao usuário um número inteiro validado.
+ * @param prompt Mensagem exibida ao usuário para entrada de dados.
+ * @return Valor inteiro inserido pelo usuário validade.
+ */
 int validated_int_input(const char *prompt);
 
 #endif
