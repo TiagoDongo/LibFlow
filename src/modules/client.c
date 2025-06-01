@@ -33,34 +33,6 @@ void regist_user(User *user_head){
     printf("\nSUCESSO: Usuario '%s' foi registado\n", new_user->user_name);
 }
 
-void delete_user(User *user_head, int userID){
-    User current_user = *user_head;
-    User previous_user = NULL;
-
-    if (*user_head == NULL){
-        puts("ERROR: registro de usuarios vazia");
-        return;
-    }
-    
-    while (current_user != NULL){
-        if (current_user->user_id == userID){
-            if (previous_user == NULL){
-                *user_head = current_user->next;
-            }
-            else {
-                previous_user->next = current_user->next;
-            }
-            printf("\nSUCESSO: usuario | %s | foi removido dos registros.\n", current_user->user_name);
-            free(current_user);
-            return;            
-        }
-        previous_user = current_user;
-        current_user = current_user->next;
-    }
-    puts("ERRO: usuario nao encontrado");
-    
-}
-
 void save_list_user(User user_head){
     char filename[100];
 

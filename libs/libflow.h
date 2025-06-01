@@ -6,7 +6,7 @@
 #ifndef LIBFLOW_H_INCLUDED
 #define LIBFLOW_H_INCLUDED
 
-#include"database.h"
+#include "database.h"
 
 /**
  * @brief Libera toda a memória alocada para usuários e livros.
@@ -16,22 +16,32 @@
 void freedom(User user_head, Book book_head);
 
 /**
- * @brief Sub-Menu de gerenciamento de livros.
- * @param book_head Ponteiro para o ponteiro do início da lista de livros.
+ * @brief Remove uma entidade (usuário ou livro) da lista encadeada.
+ * @param head Ponteiro para o ponteiro do início da lista.
+ * @param entityID ID da entidade a ser removida.
+ * @param type Tipo da entidade (usuário ou livro).
  */
-void book_menu(Book *book_head);
+void delete_entity(void **head, int entityID, DataType type);
 
 /**
- * @brief Sub-Menu de gerenciamento de usuários.
- * @param user_head Ponteiro para o ponteiro do início da lista de usuários.
+ * @brief Busca e exibe uma entidade (usuário ou livro) pelo ID.
+ * @param head Ponteiro para o início da lista.
+ * @param entityID ID da entidade a ser buscada.
+ * @param type Tipo da entidade (usuário ou livro).
  */
-void user_menu(User *user_head);
+void search_entity(void *head, int entityID, DataType type);
 
 /**
- * @brief Menu principal do sistema.
- * @param book_head Ponteiro para o ponteiro do início da lista de livros.
- * @param user_head Ponteiro para o ponteiro do início da lista de usuários.
+ * @brief Lista todas as entidades (usuários ou livros) presentes na lista.
+ * @param head Ponteiro para o início da lista.
+ * @param type Tipo da entidade (usuário ou livro).
  */
-void main_menu(Book *book_head, User *user_head);
+void list_entities(void *head, DataType type);
+
+/**
+ * @brief Apaga um JSON de uma entidade (Livro, Usuario ou Empréstimo)
+ * @param type Tipo da entidade (usuário, livro ou empréstimo).
+ */
+void delete_list(DataType type);
 
 #endif

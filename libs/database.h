@@ -39,7 +39,7 @@ typedef struct library {
     char book_autor[100];       /**< Autor do livro */
     int book_edition;           /**< Edição do livro */
     int book_available;         /**< Disponibilidade do livro (1 disponível, 0 emprestado) */
-    struct library *next_book;  /**< Ponteiro para o próximo livro na lista */
+    struct library *next;  /**< Ponteiro para o próximo livro na lista */
 } *Book;
 
 /**
