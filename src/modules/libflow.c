@@ -69,7 +69,7 @@ void delete_entity(void **head, int entityID, DataType type){
         previous = current;
         current = next;
     }
-    puts("ERRO: item não encontrado na lista.");
+    puts("ERRO: item nao encontrado na lista.");
 }
 
 void search_entity(void *head, int entityID, DataType type){
@@ -117,7 +117,7 @@ void search_entity(void *head, int entityID, DataType type){
         }
         head = next;
     }
-    puts("ERRO: item não encontrado ou foi removido.\n");
+    puts("ERRO: item nao encontrado ou foi removido.\n");
 }
 
 void list_entities(void *head, DataType type){
@@ -143,7 +143,7 @@ void list_entities(void *head, DataType type){
         }
 
         case TYPE_USER: {
-            puts("--------------------- LISTA DE USUÁRIOS ---------------------");
+            puts("--------------------- LISTA DE USUARIOS ---------------------");
             puts("  ID    |   Nome                |   Email");
             puts("-------------------------------------------------------------");
 
@@ -161,7 +161,6 @@ void list_entities(void *head, DataType type){
             break;
     }
 }
-
 
 void delete_list(DataType type){
     const char *dirPath;
@@ -184,9 +183,9 @@ void delete_list(DataType type){
     int count = 0;
 
     switch (type){
-        case TYPE_BOOK: puts("Listas de Livros Disponíveis:"); break;
-        case TYPE_USER: puts("Listas de Usuários Disponíveis:"); break;
-        case TYPE_LOAN: puts("Listas de Empréstimos Disponíveis:"); break;
+        case TYPE_BOOK: puts("Listas de Livros Disponiveis:"); break;
+        case TYPE_USER: puts("Listas de Usuarios Disponiveis:"); break;
+        case TYPE_LOAN: puts("Listas de Emprestimos Disponiveis:"); break;
     }
     while ((entry = readdir(dir)) != NULL){
         if (strstr(entry->d_name, ".json")){
@@ -199,7 +198,7 @@ void delete_list(DataType type){
     closedir(dir);
 
     if (count == 0){
-        printf("ERRO: A pasta esta vazia\n");
+        printf("ERRO: diretorio vazio\n");
         return;
     }
 
@@ -216,13 +215,13 @@ void delete_list(DataType type){
     printf("Tem certeza que deseja deletar '%s'? (s/n): ", files[choice - 1]);
     fgets(confirm, sizeof(confirm), stdin);
     if (confirm[0] != 's' && confirm[0] != 'S') {
-        puts("Operação cancelada.");
+        puts("Operacao cancelada.");
         return;
     }
 
     if (remove(filePath) == 0) {
         printf("SUCESSO: Arquivo '%s' deletado.\n", files[choice - 1]);
     } else {
-        printf("ERRO: Não foi possível deletar o arquivo '%s'.\n", files[choice - 1]);
+        printf("ERRO: Nao foi possível deletar o arquivo '%s'.\n", files[choice - 1]);
     }
 }

@@ -8,24 +8,24 @@ void make_loan(Loan *loan_head, Book book_head, User user_head){
     
     Book book_ptr = (Book)find_entity(book_head, bookID, TYPE_BOOK);
     if (book_ptr == NULL) {
-        printf("Livro com ID %d não encontrado.\n", bookID);
+        printf("ERRO: Livro com ID %d nao encontrado.\n", bookID);
         return;
     }
 
     User user_ptr = (User)find_entity(user_head, userID, TYPE_USER);
     if (user_ptr == NULL) {
-        printf("Usuário com ID %d não encontrado.\n", userID);
+        printf("ERRO: Usuario com ID %d nao encontrado.\n", userID);
         return;
     }
 
     if (book_ptr->book_available == 0){
-        printf("Livro '%s' esta indisponivel para emprestimo.\n", book_ptr->book_name);
+        printf("ERRO: Livro '%s' esta indisponivel para emprestimo.\n", book_ptr->book_name);
         return;
     }
     
     Loan new_loan = (Loan)malloc(sizeof(struct loan));
     if (new_loan == NULL){
-        puts("Erro de alocacao");
+        puts("ERRO de alocacao");
         return;
     }
 
@@ -43,7 +43,7 @@ void make_loan(Loan *loan_head, Book book_head, User user_head){
 
     book_ptr->book_available = 0;
 
-    printf("SUCESSO: empréstimo criado!\n");
+    printf("SUCESSO: emprestimo criado!\n");
 }
 
 
@@ -55,7 +55,7 @@ void return_book(Loan *loan_head, Book book_head){
     while (current != NULL) {
         if (current->loan_id == loanId) {
             if (current->returned == 1) {
-                printf("ATENÇÃO: Empréstimo ID %d já foi devolvido.\n", loanId);
+                printf("ATENCAO: Emprestimo ID %d ja foi devolvido.\n", loanId);
                 return;
             }
 
@@ -66,8 +66,8 @@ void return_book(Loan *loan_head, Book book_head){
 
                 printf("[INFO] SUCESSO: livro \"%s\" (ID %d) devolvido.\n", book_ptr->book_name, book_ptr->book_id);
             } else {
-                printf("ATENÇÃO: Livro do empréstimo ID %d não encontrado na base de dados.\n", loanId);
-                printf("[INFO] Empréstimo marcado como devolvido mesmo sem atualizar livro.\n");
+                printf("ATENCAO: Livro do emprestimo ID %d nao encontrado na base de dados.\n", loanId);
+                printf("[INFO] Emprestimo marcado como devolvido mesmo sem atualizar livro.\n");
                 current->returned = 1;
             }
             return;
@@ -255,5 +255,5 @@ void load_loans(Loan *loan_head){
     strncpy(last_loaded_file, filepath, sizeof(last_loaded_file));
     last_loaded_file[sizeof(last_loaded_file) - 1 ] = '\0';
 
-    printf("SUCESSO: %d empréstimo(s) carregado(s) de '%s'.\n", cJSON_GetArraySize(json), filepath);
+    printf("SUCESSO: %d emprestimo(s) carregado(s) de '%s'.\n", cJSON_GetArraySize(json), filepath);
 }
