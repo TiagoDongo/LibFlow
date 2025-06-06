@@ -5,7 +5,7 @@
 void regist_book(Book *book_head){
     Book new_book = (Book)malloc(sizeof(struct library));
     if (new_book == NULL){
-        puts("Erro de alocacao");
+        puts("ERRO de alocacao");
         return;
     }
 
@@ -44,7 +44,18 @@ void updates_book(Book *book_head){
         return;
     }
 
-    list_books(*book_head);
+    puts("--------------------- LISTA DE LIVROS ---------------------");
+    puts("  ID    |   Titulo              |   Autor          |   Edicao   |   Disponivel  ");
+    puts("--------------------------------------------------------------------------------");
+
+    Book aux = *book_head;
+    while (aux != NULL){
+        printf("  %-6d|  %-20s|  %-15s|  %-8d|  %-12s\n",
+            aux->book_id, aux->book_name, aux->book_autor, aux->book_edition, 
+            (aux->book_available == 1) ? "Sim" : "Nao");
+
+        book_head = aux->next;
+    }
 
     int bookID = validated_int_input("\nDigite o ID do livro a ser atualizado: ");
 
@@ -94,24 +105,24 @@ void updates_book(Book *book_head){
 
         case 3:{
             int new_edition;
-            printf("Digite a nova edição: ");
+            printf("Digite a nova edicao: ");
             if (scanf("%d", &new_edition) != 1) {
-                printf("Edição inválida.\n");
+                printf("Ediccao invalida.\n");
                 while (getchar() != '\n');
                 return;
             }
             while (getchar() != '\n');
             updatingBook->book_edition = new_edition;
-            printf("SUCESSO: Edição do livro atualizada\n");
+            printf("SUCESSO: Edicao do livro atualizada\n");
             break;
         }
 
         case 4:
-            printf("Atualização concluida.\n");
+            printf("Atualizacao concluida.\n");
             break;
 
         case 0:
-            printf("Atualização cancelada.\n");
+            printf("Atualizacao cancelada.\n");
             break;
     
         default:
@@ -171,7 +182,9 @@ void save_list_books(Book book_head){
     strcpy(last_loaded_file, filename);
 
     cJSON_Delete(json_array);
-    free(json_string);    
+    free(json_string);
+    
+    printf("SUCESSO: Lista de livros salva em '%s'.\n", filename);
 }
 
 void load_list_book(Book *book_head){
@@ -210,14 +223,14 @@ void load_list_book(Book *book_head){
     closedir(dir);
 
     if (count == 0){
-        printf("ERRO: A pasta esta vazia.\n");
+        printf("ERRO: diretorio vazio.\n");
         return;
     }
     
 
     int choice = validated_int_input("Escolha uma lista a ser carregada: ");
     if (choice < 1 || choice > count) {
-        printf("ERRO: Opção inválida.\n");
+        printf("ERRO: Opcao invalida.\n");
         return;
     }
 

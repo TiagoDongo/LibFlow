@@ -5,7 +5,7 @@
 void regist_user(User *user_head){
     User new_user = (User)malloc(sizeof(struct users));
     if (new_user == NULL){
-        printf("Erro de alocacao.\n");
+        printf("ERRO de alocacao.\n");
         return;
     }
     
@@ -30,14 +30,14 @@ void regist_user(User *user_head){
         }
         current->next = new_user;
     }
-    printf("\nSUCESSO: Usuario '%s' foi registado\n", new_user->user_name);
+    printf("\nSUCESSO: Usuario '%s' foi registrado\n", new_user->user_name);
 }
 
 void save_list_user(User user_head){
     char filename[100];
 
     if (user_head == NULL){
-        puts("ERRO: registro de usuarios vazia");
+        puts("ERRO: registro de usuarios vazio");
         return;
     }
 
@@ -84,7 +84,7 @@ void save_list_user(User user_head){
     cJSON_Delete(user_array);
     free(user_json_string);
 
-    printf("SUCESSO: Lista de usuários salva em '%s'.\n", filename);
+    printf("SUCESSO: Lista de usuarios salva em '%s'.\n", filename);
 }
 
 void load_list_user(User *user_head){
@@ -129,7 +129,7 @@ void load_list_user(User *user_head){
     
     int choice = validated_int_input("Escolha uma lista a ser carregada: ");
     if (choice < 1 || choice > count) {
-        printf("ERRO: Opção inválida.\n");
+        printf("ERRO: Opcao invalida.\n");
         return;
     }
 
@@ -182,7 +182,7 @@ void load_list_user(User *user_head){
         cJSON *json_obj = cJSON_GetArrayItem(json, i);
         User new_user = malloc(sizeof(struct users));
         if (!new_user){
-            printf("ERRO: Falha ao alocar memória para um usuario.\n");
+            printf("ERRO: Falha ao alocar memoria para um usuario.\n");
             cJSON_Delete(json);
             return;
         }

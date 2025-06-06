@@ -146,7 +146,7 @@ int validated_int_input(const char *prompt){
         while ((c = getchar()) != '\n' && c != EOF);
         
         if (result != 1 || value < 0){
-            printf("Entrada invalida. Por favor digite um numero inteiro nao negativo.\n");
+            printf("ERRO: Entrada invalida. Por favor digite um numero inteiro nao negativo.\n");
         }
     } while (result != 1 || value < 0);
 
