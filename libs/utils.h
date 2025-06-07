@@ -46,4 +46,11 @@ const char *get_type_prefix(DataType type);
  */
 int validated_int_input(const char *prompt);
 
+/**
+ * @brief Solicita ao usuário uma string de caracteres validada.
+ * @param prompt Mensagem exibida ao usuário para entrada de dados.
+ * @param destination Ponteiro para onde a string digitada será armazenada.
+ * @param max_length Tamanho máximo da string (incluindo o `\0` do final).
+ */
+void validated_string_input(const char *prompt, char *destination, int max_length);
 #endif

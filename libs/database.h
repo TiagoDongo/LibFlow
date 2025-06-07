@@ -14,6 +14,7 @@
 #include<dirent.h>
 #include<string.h>
 #include<time.h>
+#include<ctype.h>
 
 /**
  * @var last_loaded_file

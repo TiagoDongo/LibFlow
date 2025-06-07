@@ -20,12 +20,13 @@ int main()
         puts("1 - Registrar");
         puts("2 - Realizar emprestimo");
         puts("3 - Devolver livro");
-        puts("4 - Salvar listas");
-        puts("5 - Carregar listas");
-        puts("6 - Listar entidades");
-        puts("7 - Buscar entidade por ID");
-        puts("8 - Remover entidade");
-        puts("9 - Deletar arquivo de lista");
+        puts("4 - Atualizar livro");
+        puts("5 - Salvar listas");
+        puts("6 - Carregar listas");
+        puts("7 - Listar entidades");
+        puts("8 - Buscar entidade por ID");
+        puts("9 - Remover entidade");
+        puts("10 - Deletar arquivo de lista");
         puts("0 - Sair");
         opcao = validated_int_input("Escolha uma opcao: ");
 
@@ -52,7 +53,11 @@ int main()
             return_book(&loan_head, book_head);
             break;
 
-        case 4:{
+        case 4:
+            updates_book(&book_head);
+            break;
+
+        case 5:{
             puts("Salvar qual lista? 1-Livros  2-Usuarios  3-Emprestimos");
             tipo = validated_int_input("Opcao: ");
             if (tipo == 1){
@@ -67,7 +72,7 @@ int main()
             break;
         }
 
-        case 5:{
+        case 6:{
             puts("Carregar qual lista? 1-Livros  2-Usuarios  3-Emprestimos");
             tipo = validated_int_input("Opcao: ");
             if (tipo == 1){
@@ -82,7 +87,7 @@ int main()
             break;
         }
 
-        case 6:{
+        case 7:{
             puts("Listar qual entidade? 1-Livros  2-Usuarios");
             tipo = validated_int_input("Opcao: ");
             if (tipo == 1){
@@ -95,7 +100,7 @@ int main()
             break;
         }
 
-        case 7:{
+        case 8:{
             puts("Buscar qual entidade? 1-Livros  2-Usuarios");
             tipo = validated_int_input("Opcao: ");
             id = validated_int_input("Digite o ID: ");
@@ -109,7 +114,7 @@ int main()
             break;
         }
 
-        case 8:{
+        case 9:{
             puts("Remover qual entidade? 1-Livros  2-Usuarios");
             tipo = validated_int_input("Opcao: ");
             id = validated_int_input("Digite o ID: ");
@@ -122,7 +127,7 @@ int main()
             break;
         }
 
-        case 9:{
+        case 10:{
             puts("Deletar arquivo de qual lista? 1-Livros  2-Usuarios  3-Emprestimos");
             tipo = validated_int_input("Opcao: ");
             if (tipo == 1)
