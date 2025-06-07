@@ -10,14 +10,8 @@ void regist_user(User *user_head){
     }
     
     new_user->user_id = id_generator(*user_head, TYPE_USER);
-
-    printf("Digite o nome do usuario: ");
-    fgets(new_user->user_name, sizeof(new_user->user_name), stdin);
-    new_user->user_name[strcspn(new_user->user_name, "\n")] = '\0';
-
-    printf("Digite o email do usuario: ");
-    fgets(new_user->user_email, sizeof(new_user->user_email), stdin);
-    new_user->user_email[strcspn(new_user->user_email, "\n")] = '\0';
+    validated_string_input("Digite o nome do usuario: ", new_user->user_name, sizeof(new_user->user_name));
+    validated_string_input("Digite o email do usuario: ", new_user->user_email, sizeof(new_user->user_email));
 
     new_user->next = NULL;
     if (*user_head == NULL){

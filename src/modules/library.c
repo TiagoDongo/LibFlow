@@ -10,16 +10,9 @@ void regist_book(Book *book_head){
     }
 
     new_book->book_id = id_generator(*book_head, TYPE_BOOK);
-
-    printf("\nDigite o nome do livro: ");
-    scanf(" %99[^\n]", new_book->book_name);
-
-    printf("Digite o nome do autor do livro: ");
-    scanf(" %99[^\n]", new_book->book_autor);
-
-    printf("Digite a edicao do livro: ");
-    scanf("%d", &new_book->book_edition);
-
+    validated_string_input("Digite o nome do livro: ", new_book->book_name, sizeof(new_book->book_name));
+    validated_string_input("Digite o nome do autor do livro: ", new_book->book_autor, sizeof(new_book->book_name));
+    new_book->book_edition = validated_int_input("Digite a edicao do livro: ");
     new_book->book_available = 1;
 
     new_book->next = NULL;
@@ -54,7 +47,7 @@ void updates_book(Book *book_head){
             aux->book_id, aux->book_name, aux->book_autor, aux->book_edition, 
             (aux->book_available == 1) ? "Sim" : "Nao");
 
-        book_head = aux->next;
+        *book_head = aux->next;
     }
 
     int bookID = validated_int_input("\nDigite o ID do livro a ser atualizado: ");

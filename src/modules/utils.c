@@ -152,3 +152,30 @@ int validated_int_input(const char *prompt){
 
     return value;
 }
+
+void validated_string_input(const char *prompt, char *destination, int max_length) {
+    while (1) {
+        printf("%s", prompt);
+
+        if (fgets(destination, max_length, stdin) == NULL) {
+            printf("ERROR: Failed to read input.\n");
+            continue;
+        }
+
+        destination[strcspn(destination, "\n")] = '\0';
+
+        int only_spaces = 1;
+        for (int i = 0; destination[i] != '\0'; i++) {
+            if (!isspace((unsigned char)destination[i])) {
+                only_spaces = 0;
+                break;
+            }
+        }
+
+        if (strlen(destination) == 0 || only_spaces) {
+            printf("ERROR: Empty or invalid input. Please try again.\n");
+        } else {
+            break;
+        }
+    }
+}

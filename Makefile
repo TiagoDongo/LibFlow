@@ -14,8 +14,8 @@ script:
 	@python scripts/random_datas.py
 
 dirs:
-	-@mkdir build
-	-@mkdir data
+	@python -c "import os; os.makedirs('build', exist_ok=True)"
+	@python -c "import os; os.makedirs('data', exist_ok=True)"
 	@python -c "import os; os.makedirs(os.path.join('data', 'users'), exist_ok=True)"
 	@python -c "import os; os.makedirs(os.path.join('data', 'loans'), exist_ok=True)"
 
