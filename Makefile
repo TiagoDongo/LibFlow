@@ -1,16 +1,20 @@
 SRC = src/*.c src/modules/*.c
 INCLUDES = -Ilibs
+EXE = build/main
 
-all: build/main
+.PHONY: all run scripts script dirs clean help test
 
-build/main: $(wildcard $(SRC))
-	@gcc -o build/main $(SRC) $(INCLUDES)
+all: $(EXE)
 
-run: dirs build/main
+$(EXE): dirs $(wildcard $(SRC))
+	@gcc -o $(EXE) $(SRC) $(INCLUDES)
+
+run: $(EXE)
 	@cls || clear
-	@./build/main
+	@./$(EXE)
 
-script:
+scripts: dirs
+	@pip install Faker
 	@python scripts/random_datas.py
 
 dirs:
@@ -28,9 +32,12 @@ clean:
 help:
 	@echo "Makefile do Libflow"
 	@echo "Como Usar:"
-	@echo "make 			- Compila o projeto"
-	@echo "make run 		- Compila e Executa o projeto"
-	@echo "make scripts 		- Executa os scripts python da pasta scripts"
-	@echo "make dirs 		- Cria os diretorios necessarios"
-	@echo "make clean" 		- Deleta o executavel e os JSONs bem como seus diretorios
-	@echo "make help 		- Mostra esta mensagem"
+	@echo "make             - Compila o projeto"
+	@echo "make run         - Compila e Executa o projeto"
+	@echo "make scripts     - Executa os scripts python da pasta scripts"
+	@echo "make dirs        - Cria os diretorios necessarios"
+	@echo "make clean       - Deleta o executavel e os JSONs bem como seus diretorios"
+	@echo "make help        - Mostra esta mensagem"
+
+test: all
+	@./$(EXE)
