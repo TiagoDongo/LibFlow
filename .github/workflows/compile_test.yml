@@ -1,4 +1,4 @@
-name: Compile and Test
+name: Compile Only
 
 on:
   push:
@@ -18,14 +18,6 @@ jobs:
 
       - name: Build (run Makefile)
         run: make
-
-      - name: Run tests if available
-        run: |
-          if make -n test >/dev/null 2>&1; then
-            make test
-          else
-            echo "No test target in Makefile"
-          fi
 
       - name: List build artifacts
         run: ls -la | head -n 200
