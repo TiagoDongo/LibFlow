@@ -1,4 +1,4 @@
-name: Compile Only
+name: Compile Project
 
 on:
   push:
@@ -19,14 +19,5 @@ jobs:
       - name: Build (run Makefile)
         run: make
 
-      - name: List build artifacts
-        run: ls -la | head -n 200
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: |
-            bin/
-            *.exe
-            *.out
+      - name: List build folder (first 200 lines)
+        run: ls -la build || true
